@@ -5,17 +5,19 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>EDVIS</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     
-    <link rel="stylesheet" type="text/css" href="https://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
-    <script type="text/javascript" src="https://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
 </head>
 <body>
     <p>This is my edvis page</p>
     <p>It really is!!, really</p>
-    <div id="jxgbox"></div>
-    <script type="text/javascript"> 
-        var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-5, 10, 5, -2], axis:true});
+    
+    <div id="jxgbox" class="jxgbox" style="width:500px; height:200px;"></div>
+    
+    <script type="text/javascript">
+        var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-5, 2, 5, -2]});
+    var p = board.create('point',[-3,1]);
     </script>
 </body>
 </html>
