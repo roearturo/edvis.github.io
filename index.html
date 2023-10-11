@@ -7,9 +7,15 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
+    <link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
 </head>
 <body>
     <p>This is my edvis page</p>
     <p>It really is!!, really</p>
+    <div id="jsxbox"></div>
+    <script type="text/javascript"> 
+        var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-5, 10, 5, -2], axis:true});
+    </script>
 </body>
 </html>
