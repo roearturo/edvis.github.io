@@ -1,11 +1,7 @@
 var cuantaAyuda=[];
-jQuery(function( $ ) {	
+$(function(){ 
 
-
-
-  JXG.Options.board.minimizeReflow='none';
-  JXG.Options.text.useMathJax = true;
-     
+  JXG.Options.board.minimizeReflow='none'   
   //-----------------------------Dibuja escenario -------------------------------// 
 
     JXG.Options.text.useMathJax = true;
@@ -15,8 +11,8 @@ jQuery(function( $ ) {
         axis:false,     
         showCopyright:false,
         showNavigation:true,
-        zoomX:1,  
-        zoomY:1,         
+        zoomX:1.1,  
+        zoomY:1.1,         
         showNavigation:false,
         needsRegularUpdate: true, 
           fixed: true,
@@ -45,7 +41,7 @@ jQuery(function( $ ) {
     var campImg=board.create('image',[campUrl,[50,0],[10,10]],{fixed:true,needsRegularUpdate: false, highlight: 'false'});
 
     //-----------------------------Dibuja grafica-------------------------------// 
-    var graph= JXG.JSXGraph.initBoard('graph',{
+var graph= JXG.JSXGraph.initBoard('graph',{
           boundingbox:[-2,60,8,-15], //xmin,ymax,xmax,ymin
           keepaspectratio:false, 
           axis:false,     
@@ -82,7 +78,7 @@ jQuery(function( $ ) {
           label: {offset: [-20, -1]},
           }
     });
-    var ejeYLbl = graph.create('text', [-1.5,30,'$velocidad$\\ \\ \\ \\$(m/s)$'],{cssClass:'rotateText', highlightCssClass:'rotateText'});
+    var ejeYLbl = graph.create('text', [-2,30,'$desplazamiento$\\ \\ \\ \\$(m)$'],{cssClass:'rotateText', highlightCssClass:'rotateText'});
 
     var ejeX = graph.create('axis', [[0,0], [1,0]], {
       doAdvancedPlot:false, 
@@ -140,7 +136,7 @@ jQuery(function( $ ) {
           label: {offset: [-20, -1]}, 
           }
     });
-    var ejeY1Lbl = boardGraphPlot.create('text', [-1.5,30,'$Velocidad$\\ \\ \\ \\$(m/s)$'],{cssClass:'rotateText', highlightCssClass:'rotateText'});
+    var ejeY1Lbl = boardGraphPlot.create('text', [-2,30,'$desplazamiento$\\ \\ \\ \\$(m)$'],{cssClass:'rotateText', highlightCssClass:'rotateText'});
 
     var ejeX1 = boardGraphPlot.create('axis', [[0,0], [1,0]], {
       doAdvancedPlot:false, 
@@ -156,70 +152,66 @@ jQuery(function( $ ) {
           }
       });
     var ejeX1Lbl = boardGraphPlot.create('text', [4,-10,'$tiempo$\\ \\ \\ \\$(s)$']);
-    
 
     //-----------------------------Graphplothelp------------------//
-var graphPlotHelp;
-$('#myModal').on('shown.bs.modal', function() {
-      graphPlotHelp = JXG.JSXGraph.initBoard('graphPlotHelp',{
-      boundingbox:[-2,60,8,-15], //xmin,ymax,xmax,ymin
-      keepaspectratio:false, 
-      axis:false,      
-      showCopyright:false,
-      showNavigation:true,
+    var graphPlotHelp;
+    $('#myModal').on('shown.bs.modal', function() {
+          graphPlotHelp = JXG.JSXGraph.initBoard('graphPlotHelp',{
+          boundingbox:[-2,60,8,-15], //xmin,ymax,xmax,ymin
+          keepaspectratio:false, 
+          axis:false,      
+          showCopyright:false,
+          showNavigation:true,
 
-      needsRegularUpdate: true, 
-        fixed: false,
-        numberPointsLow:100,
-        numberPointsHigh:100, 
+          needsRegularUpdate: true, 
+            fixed: false,
+            numberPointsLow:100,
+            numberPointsHigh:100, 
 
-      pan: {
-        needShift: false,
-        needTwoFingers: false,
-        enabled: true
-      },
+          pan: {
+            needShift: false,
+            needTwoFingers: false,
+            enabled: true
+          },
 
-      zoom : {
-        factorX : 1.5,   
-        factorY : 1.5,   
-         wheel: false,
-      }
-    }); 
+          zoom : {
+            factorX : 1.5,   
+            factorY : 1.5,   
+             wheel: false,
+          }
+        }); 
 
-    var ejeY2 = graphPlotHelp.create('axis', [[0,0], [0,1]], {
-      doAdvancedPlot:false, 
-      needsRegularUpdate: false, 
-      fixed: true, 
-      withLabel: false,               
-      drawZero:true,        
-      ticks:{
+        var ejeY2 = graphPlotHelp.create('axis', [[0,0], [0,1]], {
           doAdvancedPlot:false, 
           needsRegularUpdate: false, 
+          fixed: true, 
+          withLabel: false,               
+          drawZero:true,        
+          ticks:{
+              doAdvancedPlot:false, 
+              needsRegularUpdate: false, 
+              fixed: true,
+              label: {offset: [-20, -1]}, 
+              }
+        });
+        var ejeY2Lbl = graphPlotHelp.create('text', [-2,30,'Desplazamiento (m)'],{cssClass:'rotateText', highlightCssClass:'rotateText'});
+
+        var ejeX2 = graphPlotHelp.create('axis', [[0,0], [1,0]], {
+          doAdvancedPlot:false, 
+          needsRegularUpdate: false, 
+          drawZero:false,    
           fixed: true,
-          label: {offset: [-20, -1]}, 
-          }
+          withLabel: false,            
+          ticks:{
+              doAdvancedPlot:false, 
+              needsRegularUpdate: false, 
+              fixed: true,
+              label: {offset: [-3, -15]},
+              }
+          });
+        var ejeX2Lbl = graphPlotHelp.create('text', [4,-9,'tiempo (s)']);
+
     });
-    var ejeY2Lbl = graphPlotHelp.create('text', [-2,30,'Velocidad (m/s)'],{cssClass:'rotateText', highlightCssClass:'rotateText'});
-
-    var ejeX2 = graphPlotHelp.create('axis', [[0,0], [1,0]], {
-      doAdvancedPlot:false, 
-      needsRegularUpdate: false, 
-      drawZero:false,    
-      fixed: true,
-      withLabel: false,            
-      ticks:{
-          doAdvancedPlot:false, 
-          needsRegularUpdate: false, 
-          fixed: true,
-          label: {offset: [-3, -15]},
-          }
-      });
-    var ejeX2Lbl = graphPlotHelp.create('text', [4,-9,'tiempo (s)']);
-
-});
-
-    
-     
   
     //------------------------Variables Animacion----------------//
     var resolucion=0.001; 
@@ -234,7 +226,7 @@ $('#myModal').on('shown.bs.modal', function() {
     //------------------------Variables Escenario----------------//
     
     var pos0=new Vector2D(0,35);    
-    var velo0= new Vector2D(30,0);
+    var velo0= new Vector2D(25,0);
 
     var g=9.8;
     var acc= new Vector2D(0,g);          //vector aceleración gravedad
@@ -254,8 +246,8 @@ $('#myModal').on('shown.bs.modal', function() {
     ball.velo2D=velo0;    
     
              
-    /*var v_t=ball.mass*acc.y/k;
-    var tao=ball.mass/k;   */ 
+    var v_t=ball.mass*acc.y/k;
+    var tao=ball.mass/k;    
     
     var pos= function(x) {
       return pos0.y-(v_t*x+velo0.y*tao*(1-Math.exp(-x/tao))+v_t*tao*(Math.exp(-x/tao)-1));
@@ -265,7 +257,7 @@ $('#myModal').on('shown.bs.modal', function() {
       return velo0.y*Math.exp(-x/tao)+v_t*(1-Math.exp(-x/tao));
     };
   
-    /*animTime = JXG.Math.Numerics.fzero(pos,[0.4,20]); */  
+    //animTime = JXG.Math.Numerics.fzero(pos,[0.4,20]);   
     console.log("tiempo final:" + animTime);
     //-------------------------Escenario-----------------//         
     
@@ -289,9 +281,9 @@ $('#myModal').on('shown.bs.modal', function() {
     var areas1  =[];
     
     var color="black";
-    var GraphType="Time vs Horizontal Speed";       
+    var GraphType="Time vs Horizontal Distance";       
     var Xselected="Time";
-    var Yselected="Horizontal Speed";  
+    var Yselected="Horizontal Distance";  
 
     var graficapoint= graph.create('point',[
       function(){
@@ -314,8 +306,8 @@ $('#myModal').on('shown.bs.modal', function() {
     function addCurve(acel,posini,veloini,td){                          
       
       if (GraphType=="Time vs Horizontal Distance"){
-          
-          graf=graph.create('functiongraph', [function(x){return veloini*x},0,function(){return 100/veloini}], {visible:true,strokeWidth:2,strokeColor: color,highlight:false});
+          color=generarcolor();
+          graf=graph.create('functiongraph', [function(x){return veloini*x},0,function(){return 90/veloini}], {visible:true,strokeWidth:2,strokeColor: color,highlight:false});
           punt=graph.create('point', [0,0], {
             name: function(){
               if(this.X()>-0.01 && this.X()<0.01 ) return "(" + this.X().toFixed(2)+ "," + (veloini.toFixed(2)*0) +")";
@@ -331,7 +323,7 @@ $('#myModal').on('shown.bs.modal', function() {
             attractorDistance:0.5, 
             snatchDistance: 2,
             showInfobox: false,
-            label: {offset: [0,0],fixed:false},
+            label: {offset: [0,0],fixed:false,color:color},
             strokeColor: color,
             fillColor: color,
             snapToGrid: true,snapSizeX: 0.1,snapSizeY: 0.1
@@ -342,15 +334,18 @@ $('#myModal').on('shown.bs.modal', function() {
       }
 
       if (GraphType=="Time vs Horizontal Speed"){
-     
-          graf=graph.create('functiongraph', [function(x){return veloini},0,function(){return 100/veloini}], {visible:true,strokeWidth:2,strokeColor: color,highlight:false})
-          punt=graph.create('glider', [0.01,veloini,graf], {
           
+          graf=graph.create('functiongraph', [function(x){return veloini},0,function(){return 90/veloini}], {visible:true,strokeWidth:2,strokeColor: color,highlight:false})
+          punt=graph.create('glider', [0.01,veloini,graf], {
+          //punt=graph.create('point', [0,veloini], {          
             name: function(){              
                 return "(" + this.X().toFixed(2).toString() + "," + this.Y().toFixed(2).toString()+ ")";         
             }, 
+            /*attractors: [graf], 
+            attractorDistance:0.5, 
+            snatchDistance: 2,*/
             showInfobox: false,
-            label: {offset: [-10,20],fixed:false, color: color},
+            label: {offset: [-10,20],fixed:false},
             strokeColor: color,
             fillColor: color,
             snapToGrid: true,snapSizeX: 0.01,snapSizeY: 0.01
@@ -494,12 +489,12 @@ $('#myModal').on('shown.bs.modal', function() {
 
     $("#sliderG").bind( "input change", function(event, ui) {           
       g=$(this).val();          //Buscar si se puede converir el valor directamente a un número.            
-      $("#spanG").text("Free fall acceleration: " + $(this).val());
+      $("#spanG").text("Aceleración en caída libre: " + $(this).val());
       ball.pos2D=pos0;      
       velo0= new Vector2D(vIni,0);
       acc= new Vector2D(0,g*1);
       t=0;      
-      animTime=100/velo0.x;   //Tiempo de caida mas el recorrido          
+      animTime=90/velo0.x;   //Tiempo de caida mas el recorrido          
       console.log("Gravity: "+ acc.y);
       console.log("Anitime: "+ animTime);
       board.update(); 
@@ -521,12 +516,12 @@ $('#myModal').on('shown.bs.modal', function() {
     $("#sliderD").bind( "input change", function(event, ui) {           
       distance=$(this).val();           //Buscar si se puede converir el valor directamente a un número.                  
       dropD=distance*1;
-      $("#spanD").text("Distance to drop the crane: " + $(this).val());           
+      $("#spanD").text("Distancia para soltar la caja: " + $(this).val());           
       ball.pos2D=pos0;      
       velo0= new Vector2D(vIni,0);
       acc= new Vector2D(0,g*1);
       t=0;            
-      animTime=100/velo0.x;   //Tiempo de caida mas el recorrido            
+      animTime=90/velo0.x;   //Tiempo de caida mas el recorrido            
       console.log("DistanceX: "+ dropD);
       console.log("Nuevo Anitime: "+ animTime);
       console.log("estoy moviendo la barra");
@@ -557,7 +552,8 @@ $('#myModal').on('shown.bs.modal', function() {
             }});  
       reset(); 
     });
-
+    
+ //-----------------------Plotea puntos------------
     //PloteaPuntos
     var tablePoints=[];
 
@@ -572,7 +568,7 @@ $('#myModal').on('shown.bs.modal', function() {
        
     });
 
- //-----------------------Plotea puntos------------
+
 
     function ploteaPuntos(){
       boardGraphPlot.removeObject(tablePoints);
@@ -602,10 +598,8 @@ $('#myModal').on('shown.bs.modal', function() {
                 
           }
     }
-//------------------------testGrafica---------------//    
   
   var testGrafica=[];
-
   $('#checkFunction').click(function() { 
     boardGraphPlot.removeObject(testGrafica);
     testGrafica.length = 0;
@@ -619,13 +613,19 @@ $('#myModal').on('shown.bs.modal', function() {
                       var c = new JXG.Coords(JXG.COORDS_BY_SCREEN,[board.canvasWidth,0],board);
                       return c.usrCoords[1];
                     }
-                  ],{strokeColor:'#8181F7',strokeWidth:3})
+                  ], {strokeColor:'#8181F7',strokeWidth:3})
     )
 
 
-  });
+  })
+ 
 
-//-----------------------graficaHelp--------------//
+
+
+
+  //----------------------Plotea funcion---------------------//
+
+  //-----------------------graficaHelp--------------//
 
   var curvasAyuda=[];
   
@@ -654,10 +654,6 @@ $('#myModal').on('shown.bs.modal', function() {
       funcionAyuda.length = 0;
 
   });
-
-
-
-  //----------------------Plotea funcion---------------------
 
      
 
@@ -707,6 +703,7 @@ $('#myModal').on('shown.bs.modal', function() {
           $("#passInstructions").text(msg_passInstructions);
           $("#btnNexAct").text(msg_btnNexAct);          
           
+
             }          
           });
       }*/
