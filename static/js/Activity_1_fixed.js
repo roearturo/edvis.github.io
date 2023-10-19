@@ -1,8 +1,10 @@
-$(function(){ 
-  
+jQuery(function( $ ) {	
+	
+	JXG.Options.board.minimizeReflow='none'		
+ 
   //-----------------------------Dibuja escenario -------------------------------// 
 
-    JXG.Options.text.useMathJax = true;
+
     var board = JXG.JSXGraph.initBoard('edvi',{
         boundingbox:[-20,60,10,-15], //xmin,ymax,xmax,ymin
         keepaspectratio:true, 
