@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+      	<meta name="apple-mobile-web-app-capable" content="yes" charset="UTF-8">  
+      	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+      	<meta name="viewport" content="width=device-width, initial-scale=1">
+      	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+      	<title>Área bajo la curva velocidad-tiempo</title> 
+    
+    	<!-- Jquery-->
+    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    	<!-- Bootstrap core CSS -->
+      	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+      	<link href="css/sticky-footer-navbar.css" rel="stylesheet">
+      	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">      	
+    	<!-- JsxGraph-->
+    	<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+    	<script type="text/javascript" src="js/jsxgraphcore.js"></script>
+    	
+
+	   	<!-- Grid-->
+	   
+	    <script src="LinearDrag3/js/mindmup-editabletable.js"></script>
+
+    	 <!-- MathJax-->
+    	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> 
+      	</script>
+    	<script type="text/x-mathjax-config"> MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} }); </script>
+    	<script src="js/particle.js"></script>
+    	<script src="js/vector2D.js"></script>
+    	<script src="js/ball.js"></script>
+    	<script src="js/Activity_1c_fixed_conarea.js"></script>
+
+    	<script src="js/google-sheets-Activity1c.js"></script>
+      
+  </head>
+    
+
+
+
+	<style>
+
+	body {
+    	background-color: #242c42;
+    	font-family: 'Raleway', sans-serif;
+	}
+
+	.navbar{
+		background-color: #16A086;
+		border-color: transparent;
+	}
+	.navbar-default .navbar-brand{
+	    position: absolute;
+	    width: 100%;
+	    left: 0;
+	    text-align: center;
+	    margin:0 auto;
+	    color: #FFF;
+	    
+	}
+	.navbar-toggle {
+	    z-index:3;
+	}
+
+	.button-trans {
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            border: none;
+            cursor:pointer;
+            overflow: hidden;
+            color: white
+
+        }
+	.box{
+	  box-model: border-box;
+	  border: 3px solid transparent;
+	  background-clip:padding-box;
+	}
+
+	.center-block {float: none !important}
+
+	.jxgbox{
+		border:none;
+		border-radius: 0px;
+	}
+	.bordered {
+        border: 1px solid black;
+        background: transparent;
+    }
+
+	.nopadding{
+		padding-right: 4px;
+		padding-left: 4px;
+		padding-top: 5px;
+	}
+    .panel {
+        padding-left: 35px;
+        padding-right: 35px;
+        padding-bottom: 25px;
+      }
+
+    th, td {
+      text-align: center;
+    }
+    .table {
+        background-color: #CEF6E3
+      }
+    
+    .indent {
+       text-indent: 3em;
+    }
+	
+	.pre-scrollable {
+    max-height: 800px;
+   
+	}
+	.rotateText {
+    -moz-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    -o-transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.);
+	}
+
+    input{
+    	width: 500px;
+    }
+    .well{
+      background-color: #f6fffa
+    }
+
+	</style>
+
+    
+    <body>
+
+   <!-- Navbar top -->
+
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	    <a class="navbar-brand" id="headerTitle">Movimiento horizontal del helicóptero y la caja</a>
+	  </div>
+	  <div class="navbar-collapse collapse">
+	    <ul class="nav navbar-nav navbar-left">
+	        <li><img src="images/logo-cinvestav.png" alt=""></li>
+	       
+	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+			<li><img src="images/logo-paris-diderot.png" alt="" width="120" ></li>
+	    </ul>
+	  </div>
+	</nav>
+
+
+		
+	<!-- Cuerpo -->	
+	<div class="container-fluid">
+		<div class="col-md-12 panel panel-default well well-lg"> <!-- Panel -->
+		<h3>Actividad I.III. Interpretación del área bajo la curva.</h3>
+		 
+			<!-- Instrucciones -->	
+			<div class="row">
+				<div class="col-md-12">
+					<!-- <p id="pInstructions" > -->
+					<p style="padding-left:2em"> &bull;
+						Presiona el botón <strong>"Ajustes del helicóptero"</strong> y fija la velocidad horizontal constante del helicóptero a <script type="math/tex">20 m/s</script>. 
+					</p>
+			
+					<p style="padding-left:2em"> &bull;   Ejecuta la simulación.<br/> 
+					</p> 
+					 
+						 				
+				</div>
+			</div>
+
+	<!-- EDVI -->
+
+			<div class="row">
+			  	<div class="col-xs-6 box"> <!-- Columna 1 -->		  		
+			  		<div id="edvi" class="center-block jxgbox" style="height:400px; width:95%"></div>  	
+				  	<div class="row center-block" style=" width:95%"><!-- Botones --> 
+				      	<div class="col-md-6 nopadding">
+				      	<button id="StartBtn" type="button" class="btn btn-success btn-block" >
+			  				Ejecutar
+			  			</button>
+				      </div>   
+				      <div class="col-md-6 nopadding">
+				      	<button id="hsTitle" href="#modal-edvi" type="button" class="btn btn-success btn-block" data-toggle="modal">
+			  				Ajustes del helicóptero
+			  			</button>
+				      </div>
+				    </div><!-- Fin Botones -->
+			  	</div><!-- Fin Columna 1 -->
+
+			  	<div class="col-xs-6 box"> <!-- Columna 2 -->
+			  		<div id="graph" class="center-block jxgbox" style="height:400px; width:100%;"></div>
+				  	<div class="row center-block" style=" width:100%"><!-- Botones -->
+				  		<div class="col-md-6 nopadding">
+					      	<button id="ResetBtn" type="button" class="btn btn-success btn-block">
+				  				Reset
+				  			</button>
+				      	</div>
+
+				      	<div class="col-md-6 nopadding">
+					      	<button id="gsTitle" href="#modal-graph" type="button" class="btn btn-success btn-block" data-toggle="modal">
+				  				Ajustes de la gráfica
+				  			</button>		 
+				      	</div> 
+
+				    </div><!-- Fin Botones -->
+			  	</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 panel panel-default well well-lg pre-scrollable"> <!-- Panel Preguntas -->
+		<h3>Cuestionario III. A continuación te solicitamos contestes a las siguientes preguntas. </h3>
+		<p>&nbsp;</p>
+		<!-- <div class="row"> -->
+
+		<form id="Actividad_1" class="form-inline">
+			
+			<ol>
+			    <li> Escribe tu nombre:  
+	          	<input id='name' name='Nombre' type='text'>	</li>
+	          	<p>&nbsp;</p>
+			    <li> Da clic sobre el punto que se trazó sobre la gráfica de la simulación, mantén pulsado el mouse mientras <em>arrastras</em> el punto a lo largo de la recta. Observa las coordenadas y el área sombreada bajo la recta.</li>
+			    <p>&nbsp;</p>
+
+			   	<li>En el contexto <strong><em>físico</em></strong>; es decir, en relación al helicóptero y la simulación,  
+	          		<ol type="a">
+	          			
+	          			<li>
+	          				 ¿Qué representa la <strong><em>coordenada x</em></strong> del punto?
+	          				 <br>
+	          				 <input  id='Representa tiempo' name='Representa tiempo' type='text'>
+	          			</li>
+	          			<p>&nbsp;</p>
+	          			<li>
+	          				¿Qué representa la <strong><em>coordenada y</em></strong> del punto?
+	          				<br>
+	          				<input  id='Representa velocidad' name='Representa velocidad' type='text'>
+	          			</li>
+	          		</ol>
+	          	</li>
+	          	<p>&nbsp;</p>
+	          	<li>¿Cómo calculas el área de un rectángulo?  
+	          		<textarea id="Formula area" name="Formula area" style="width: 90%; height: 80px"></textarea>
+	          	</li>
+
+				<p>&nbsp;</p>
+	          	<li>A continuación se muestran algunas velocidades para el helicóptero, ejecuta la simulación en cada caso y calcula el área bajo la curva.</li>
+
+				<div class="row">
+
+				    <div class="col-xs-6" style="overflow: auto; display:block;margin-left:auto;margin-right:auto ">
+		            	<table id="tabulacionTable" class="table table-striped">
+			              	<tbody>
+			                	<thead>
+				                  <tr>				                    
+				                    <th> Velocidad Horizontal<script type="math/tex">(m/s)</script></th>
+				                    <th> Área bajo la recta<script type="math/tex"></script></th>            
+				                  </tr>
+				                </thead>
+				                  <tr>
+				                    <td> 15 </td>
+				                    <td>   </td>
+				                    		            
+				                  </tr>
+				                  <tr>
+				                    <td> 25 </td>
+				                    <td>   </td>
+				                    		            
+				                  </tr>
+				                  <tr>
+				                    <td> 30 </td>
+				                    <td>   </td>
+				                    		            
+				                  </tr>
+				                  <tr>
+				                    <td> 40 </td>
+				                    <td>   </td>
+				                    		            
+				                  </tr>
+				                  <tr>
+				                    <td> 45 </td>
+				                    <td>   </td>
+				                    		            
+				                  </tr>
+				                  
+			                	
+			              	</tbody>
+			            </table>
+			        </div>
+
+				    <div class="col-xs-6">
+
+			          	<!-- <div id="graphPlot" class="center-block jsxbox" style="height:300px; width:100%"></div>   -->
+		                  
+			        </div>  <!--End column-6-->	
+		     	</div> <!-- End row con columnas-->	        
+     		
+		    <li>¿Cómo fue el valor del área calculada?
+				<textarea id="Distancia Constante" name="Distancia Constante" style="width: 90%; height: 80px"></textarea>
+		    </li>
+
+			<p>&nbsp;</p>
+	        
+
+			
+
+			<li>¿Qué unidades tiene el producto <script type="math/tex">velocidad \times tiempo </script> ?
+				<textarea id="Distancia Unidades" name="Distancia Unidades" style="width: 90%; height: 80px"></textarea>
+				<p>&nbsp;</p>
+		    </li>
+
+		    <li>De acuerdo al contexto <strong><em>físico</em></strong>; es decir, en la simulación. ¿Qué significado tiene el área bajo la gráfica <strong><em>velocidad-tiempo</em></strong>?<br>
+		    <textarea id="Conclusion_area" name="Conclusion area" style="width: 90%; height: 80px"></textarea>
+		    </li>		    
+
+			<p>&nbsp;</p>
+          	<div class="form-group row">
+            <label>Presiona el botón "Enviar" para enviar tus respuestas y continuar con la siguiente actividad.</label>
+            <button id="PostBtn" type='submit' class="btn btn-success">Enviar</button>
+            <a href="Fase_2.html" class="btn btn-success" id="btnNexAct">Siguiente Actividad</a><script type="text/javascript">$("#btnNexAct").hide();</script>
+          	</div>
+	      
+	    </form>     
+
+		</div> <!-- Panel Preguntas -->
+
+
+	</div> <!-- Container FLuid -->	
+
+
+
+
+
+
+
+	<!-- Navbar bottom-->
+
+    <footer class="footer ">
+
+	<div class="btn-group dropup">
+	  	<button type="button" class="btn btn-default button-trans" style="top: 5px; margin-left: 10px;">Language</button>
+	  	
+	  	<button type="button" class="btn btn-default dropdown-toggle button-trans" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="top: 5px;">
+		    <span class="caret"></span>
+		    <span class="sr-only">Toggle Dropdown</span>
+	  	</button>
+	  	
+	  	<ul class="dropdown-menu">
+	    	<li><a href="#">en</a></li>
+	    	<li><a href="#">es</a></li>
+	    	<li><a href="#">fr</a></li>
+	   </ul>
+	</div>
+			        
+	<a id="modal-49036" href="#modal-container-49036" role="button" class="glyphicon glyphicon-info-sign pull-right" style="color:white; top: 15px; margin-right: 10px" data-toggle="modal">About</a>  
+    </footer>
+
+
+	
+	<!-- Modal About-->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="modal fade" id="modal-container-49036" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel" style="text-align:center">Didactical Interactive Virtual Scenario (DIVS) Projectile Motion.
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div data-role="popup" id="popupAbout" class="ui-content" data-theme="none"  data-shadow="false">
+								<p style="text-align:center"><br>Programming and Didactical Design:<br>Arturo Rodríguez Espinosa (CINVESTAV México)<br>
+							     
+							    &copy 2017
+							    </p>            
+							</div>
+						</div>
+						<div class="modal-footer"> 
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 			
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- Modal Edvi Settings-->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="modal fade" id="modal-edvi" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header"> 
+							<h4 class="modal-title" id="edviSetHeader" style="text-align:center">
+								Mueve los deslizadores para fijar la,
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div data-role="popup" id="popupAbout" class="ui-content" data-theme="none"  data-shadow="false">
+							            
+							<span id='spanH'>Altura del helicóptero y la caja: 30 </span><script type="math/tex"> m</script>
+							<input type="range" id="sliderH" value="25" min="1" max="100" step="0.1"/>
+							       
+							<span id='spanV'>Velocidad horizontal constante del helicóptero y la caja: 25 </span><script type="math/tex"> m/s</script>
+							<input type="range" id="sliderV" value="25" min="13" max="50" step="0.1"/>
+       
+							</div>
+						</div>
+						<div class="modal-footer">
+							 
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> 	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- Modal Graph Settings-->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="modal fade" id="modal-graph" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel" id="graphSetHeader">Ajustes de la gráfica</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-xs-6 box">
+								<h5   id="axisXHeader">Eje X: </h5>
+									<select id="Xaxis" class="Xaxis-select">
+									  	<option id="lblTime" selected value="Time">Tiempo</option>
+									  	<!-- <option>2</option>
+									 	<option>3</option>
+									  	<option>4</option>
+									  	<option>5</option> -->
+									</select>									
+								</div>
+								<div class="col-xs-6 box">
+								<h5   id="axisYHeader">Eje Y: </h5>
+									<select id="Yaxis" class="Yaxis-select">
+									  	<option id="lblHS" selected value="Horizontal Speed">Velocidad Horizontal</option>
+									  	<option id="lblHD" value="Horizontal Distance">Desplazamiento horizontal</option>
+						<!-- 			 	<option>3</option>
+									  	<option>4</option>
+									  	<option>5</option> -->
+									</select>				
+								</div> 
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> 	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+
+
+
+
+
+    </body>    
+
+</html>
