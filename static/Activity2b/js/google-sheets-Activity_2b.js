@@ -43,7 +43,7 @@ $("#Actividad_1").submit(function(event){
 
     // Fire off the request to /form.php
     request = $.ajax({
-        url: "https://script.google.com/macros/s/AKfycby2hHRhs0EILRqwNe69cOMhRgloUivSeIh9v6eN6YWnSqpcrCc/exec",
+        url: "https://script.google.com/macros/s/AKfycbyczDKIxx0tNDpaUbl-P3rqo9k4ciSHLaEZLK1AKaFjZNE5_U4/exec",
         type: "post",
         data: serializedData
     });

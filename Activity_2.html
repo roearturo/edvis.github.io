@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+      	<meta name="apple-mobile-web-app-capable" content="yes" charset="UTF-8">  
+      	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+      	<meta name="viewport" content="width=device-width, initial-scale=1">
+      	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+      	<title>Movimiento vertical</title> 
+    
+ 		<!-- Jquery-->
+ 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    	<!-- Bootstrap core CSS -->
+      	<link href="static/Activity2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      	<script src="static/Activity2/bootstrap/js/bootstrap.min.js"></script>
+
+      	<link href="css/sticky-footer-navbar.css" rel="stylesheet">
+     
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
+
+    	<!-- JsxGraph-->
+    	<link rel="stylesheet" type="text/css" href="static/Activity2/css/jsxgraph.css" />
+    	<script type="text/javascript" src="static/Activity2/js/jsxgraphcore.js"></script>
+
+    	<!-- Grid-->
+	    <script src="static/Activity2/js/mindmup-editabletable.js"></script>
+    	     	  
+
+    	<!-- MathJax-->
+		<script type="text/javascript" async
+  			src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+			});
+		</script>
+    
+    	<script type="text/x-mathjax-config"> MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    	</script>
+
+    	<script src="static/Activity2/js/particle.js"></script>
+    	<script src="static/Activity2/js/vector2D.js"></script>
+    	<script src="static/Activity2/js/ball.js"></script>
+    	<script src="static/Activity2/js/Activity_2.js"></script>
+
+	    <script src="static/Activity2/js/google-sheets-Activity_2.js"></script>
+      
+  </head>
+    
+
+
+
+	<style>
+	body {
+    	background-color: #242c42;
+    	font-family: 'Raleway', sans-serif;
+	}
+
+	.navbar{
+		background-color: #16A086;
+		border-color: transparent;
+	}
+	.navbar-default .navbar-brand{
+	    position: absolute;
+	    width: 100%;
+	    left: 0;
+	    text-align: center;
+	    margin:0 auto;
+	    color: #FFF;
+	    
+	}
+	.navbar-toggle {
+	    z-index:3;
+	}
+
+	.button-trans {
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            border: none;
+            cursor:pointer;
+            overflow: hidden;
+            color: white;
+
+        }
+	.box{
+	  box-model: border-box;
+	  border: 3px solid transparent;
+	  background-clip:padding-box;
+	}
+
+	.center-block {float: none !important}
+
+	.jxgbox{
+		border:none;
+		border-radius: 0px;
+	}
+
+	.nopadding{
+		padding-right: 4px;
+		padding-left: 4px;
+		padding-top: 5px;
+	}
+	    .panel {
+        padding-left: 35px;
+        padding-right: 35px;
+        padding-bottom: 25px;
+      }
+
+    th, td {
+      text-align: center;
+    }
+    .table {
+        background-color: #CEF6E3
+      }
+    .indent {
+       text-indent: 3em;
+    }
+    
+    .pre-scrollable {
+    max-height: 800px;
+   
+	}
+
+    .bordered {
+        border: 1px solid black;
+        background: transparent;
+    }
+	.rotateText {
+    -moz-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    -o-transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.);
+	}
+
+    input{
+    	width: 500px;
+    }
+
+    .well{
+    	background-color: #f6fffa
+    }
+
+	</style>
+
+    
+    <body>
+
+   <!-- Navbar top -->
+
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	    <a class="navbar-brand" id="headerTitle">Movimiento Vertical de la caja</a>
+	  </div>
+	  <div class="navbar-collapse collapse">
+	    <ul class="nav navbar-nav navbar-left">
+	        <li><img src="images/logo-cinvestav.png" alt=""></li>
+	       
+	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+			<li><img src="images/logo-paris-diderot.png" alt="" width="120" ></li>
+	    </ul>
+	  </div>
+	</nav>
+
+
+		
+	<!-- Cuerpo -->	
+	<div class="container-fluid">
+	<div class="col-md-12 panel panel-default">
+		<h1>Actividad II. Velocidad vertical de la caja</h1>
+			<!-- Instrucciones -->	
+			<div class="row">
+				<div class="col-md-12">
+					<p class="indent" >
+						&bull; Fija la altura del helicóptero a <script type="math/tex">75m</script>. Para esto da clic en el botón <strong>Ajustes del Helicóptero</strong>. 						
+					</p>
+					<p class="indent"> &bull; Ejecuta la simulación</p>				
+				</div>
+		</div>
+	</div>
+	<!-- EDVI -->
+
+	<div class="col-md-12 panel panel-default well well-lg">
+	<p>&nbsp;</p>
+	  	<div class="col-xs-6 box"> <!-- Columna 1 -->
+	  		
+	  		<div id="edvi" class="center-block jxgbox" style="height:500px; width:95%"></div>
+		  	
+		  	<div class="row center-block" style=" width:95%"><!-- Botones --> 
+		      <div class="col-md-6 nopadding">
+		      	<button id="StartBtn" type="button" class="btn btn-success btn-block" >
+	  				Ejecutar
+	  			</button>
+		      </div>
+		      
+		      <div class="col-md-6 nopadding">
+		      	<button id="hsTitle" href="#modal-edvi" type="button" class="btn btn-success btn-block" data-toggle="modal">
+	  				Ajustes del helicóptero
+	  			</button>
+		      </div>
+		    </div><!-- Fin Botones -->
+	  	</div><!-- Fin Columna 1 -->
+
+	  <div class="col-xs-6 box"> <!-- Columna 2 -->
+	  	<div id="graph" class="center-block jxgbox" style="height:500px; width:100%;"></div>
+
+		  	<div class="row center-block" style=" width:100%"><!-- Botones -->
+		  		<div class="col-md-6 nopadding">
+			      	<button id="ResetBtn" type="button" class="btn btn-success btn-block">
+		  				Reset
+		  			</button>
+		      	</div>
+
+		      	<div class="col-md-6 nopadding">
+			      	<button id="gsTitle" href="#modal-graph" type="button" class="btn btn-success btn-block" data-toggle="modal">
+		  				Ajustes de la grafica
+		  			</button>		 
+		      	</div> 
+
+		    </div><!-- Fin Botones -->
+	  </div>
+	</div> <!-- Fin escenario -->
+
+
+	<div class="col-md-12 panel panel-default well well-lg pre-scrollable"> <!-- Panel Preguntas -->
+		<h3>Cuestionario I. A continuación te solicitamos contestes las siguientes preguntas. </h3>
+		<p>&nbsp;</p>
+		<!-- <div class="row"> -->
+
+		<form id="Actividad_1" class="form-inline">
+			
+			<ol>
+			    <li> Escribe tu nombre:  
+	          	<input id='name' name='Nombre' type='text'>	</li>
+	          	<p>&nbsp;</p>
+			    <li> Da clic sobre el punto que se trazó sobre la gráfica de la simulación, mantén pulsado el mouse mientras <em>arrastras</em> el punto a lo largo de la recta. Observa cómo cambian los valores de sus coordenadas.</li>
+			    <p>&nbsp;</p>
+
+			    <li>En el contexto <strong><em>físico</em></strong>; es decir, en relación a la caja y la simulación,  
+	          		<ol type="a">
+	          			
+	          			<li>
+	          				 ¿Qué representa la <strong><em>coordenada x</em></strong> del punto?
+	          				 <br>
+	          				 <input  id='Representa tiempo' name='Representa tiempo' type='text'>
+	          			</li>
+	          			<p>&nbsp;</p>
+	          			<li>
+	          				¿Qué representa la <strong><em>coordenada y</em></strong> del punto?
+	          				<br>
+	          				<input  id='Representa velocidad' name='Representa velocidad' type='text'>
+	          			</li>
+	          		</ol>
+	          	</li>
+	          	<p>&nbsp;</p>
+	          	<li>Utiliza las coordenadas del punto para completar la siguiente tabla:</li>
+
+
+				<div class="row">
+
+				    <div class="col-xs-6" style="overflow: auto; display:block;margin-left:auto;margin-right:auto ">
+		            	<table id="tabulacionTable" class="table table-striped">
+			              	<tbody>
+			                	<thead>
+				                  <tr>
+				                    <th>Tiempo <br> <script type="math/tex">(s)</script> </th>
+				                    <th> Velocidad vertical <br> <script type="math/tex">(m/s)</script></th>		            
+				                  </tr>
+				                </thead>
+				                  <tr>
+				                	<td> 0 </td>
+				                    <td>   </td>	
+				                  </tr>
+				                  <tr>
+				                    <td> 1 </td>
+				                    <td>   </td>		            
+				                  </tr>
+				                  <tr>
+				                    <td> 2 </td>
+				                    <td>   </td>		            
+				                  </tr>
+				                  <tr>
+				                    <td> 3 </td>
+				                    <td>   </td>		            
+				                  </tr>
+				                  <tr>
+				                    <td> 4 </td>
+				                    <td>   </td>		            
+				                  </tr>
+				                  <tr>
+				                    <td> 5 </td>
+				                    <td>   </td>		            
+				                  </tr>	                             	
+			              	</tbody>
+			            </table>
+			        </div>
+
+				    <div class="col-xs-6">
+
+			          	<div id="graphPlot" class="center-block jsxbox" style="height:300px; width:100%"></div>  
+		                  
+			        </div>  <!--End column-6-->	
+		     	</div> <!-- End row con columnas-->	        
+     		 <p>&nbsp;</p>
+		     <li>¿De cuánto en cuánto cambian los valores de la <strong><em>velocidad vertical</em></strong> de la caja? Describe con tus propias palabras el patrón o secuencia que siguen estos valores.
+			<textarea id="Patron_Velocidad" name="Patron Velocidad" style="width: 90%; height: 80px"></textarea>
+		     </li>
+
+		     <p>&nbsp;</p>
+
+		     <li>¿Puedes inferir o deducir una expresión que relacione al <strong><em> tiempo </em></strong>  <script type="math/tex">(t)</script> y la <strong><em> velocidad vertical </em></strong> <strong><em> v(t) </em></strong> de la caja? Escríbela. <br>Tip: Da clic sobre el botón gráficar y observa si tu gráfica pasa por todos los puntos previamente trazados.
+				<p>&nbsp;</p> 
+			    <script type="math/tex">v(t)=</script> 
+	          	<input  id='funcionLineal' name='Funcion Lineal' type='text'>
+	          	<button id="checkFunction" type='button' class="btn btn-primary">Graficar</button>
+
+	          		          	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				  ¿Necesitas ayuda?
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg" role="document">
+				    <div class="modal-content">
+
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				        <h4 class="modal-title" id="myModalLabel" style="text-align: center">
+				        	Escribe las siguientes funciones y pulsa el botón graficar.
+				        </h4>
+				      </div>
+
+				      <div class="modal-body"> 	
+				      	<div class="row">				      
+						    <div class="col-xs-5" style="overflow: auto; display:block;margin-left:auto;margin-right:auto ">
+
+						    	<div class="panel panel-default well well-lg">
+						    	<p>Las expresiones que se muestran a continuación representan funciones de velocidad-tiempo. <br> Éstas, representan la velocidad de la caja conforme cambia el tiempo. La notación <script type="math/tex"> v(t)</script> nos permite abreviar <strong><em>velocidad en función del tiempo</em></strong>. </p>				
+							    	<ol >
+							    		<li>
+								    		<script type="math/tex">v(t)= 5*t</script>
+							    		</li>
+							    		<li>
+								    		<script type="math/tex">v(t)= 30*t</script>
+							    		</li>
+							    		<li>
+								    		<script type="math/tex">v(t)= 20</script>
+							    		</li>
+							    		<li>
+								    		<script type="math/tex">v(t)= 6*t*t</script>
+							    		</li>
+							    		
+							    	</ol>
+							    </div>
+								    
+
+								<div class="panel panel-default well well-lg">
+								     
+								    	<script type="math/tex">v_h(t)=</script> 
+									    <input  id='funcionAyuda' type='text' name="Pidio ayuda" style="width: 150px">
+
+									    <div class="row center-block" style=" width:100%"><!-- Botones -->
+									  		<div class="col-md-6 nopadding">
+										      	<button id="funcionAyudaGraficarBtn" type="button" class="btn btn-success btn-block">
+									  				Graficar
+									  			</button>
+									      	</div>
+
+									      	<div class="col-md-6 nopadding">
+										      	<button id="funcionAyudaBorrarBtn" type="button" class="btn btn-success btn-block"">
+									  				Borrar
+									  			</button>		 
+									      	</div> 
+
+				    					</div><!-- Fin Botones -->
+					
+									 
+								</div>								    	
+							    	
+
+					        </div>
+
+						    <div class="col-xs-7">
+								<div id="graphPlotHelp" class="jsxbox" style="height:300px; width:100%"></div>
+							</div>  <!--End column-6-->				
+		     			</div> <!-- End row con columnas-->
+				      </div> <!-- End modal body -->
+				      
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				      </div>
+				    
+				    </div>  <!-- end modal content -->
+				  </div> <!-- Modal dialog -->
+				</div>	<!-- modal -->
+
+	         </li>
+			<p>&nbsp;</p>
+
+			<li>Cuando un objeto <strong>cambia su velocidad</strong>, se dice que <strong>acelera</strong>. Cuando la caja cae, ésta ¿acelera o no acelera? Explica tu respuesta.
+			<textarea id="Acelera la caja" name="Acelera la caja" style="width: 90%; height: 80px"></textarea>
+			<!-- <textarea id="Aceleracion_Gravedad" name="Aceleracion Gravedad" style="width: 90%; height: 80px"></textarea> -->
+		    </li>
+
+		    <li>¿Qué piensas que ocasiona la caída de la caja?
+			<textarea id="Causa_Caida" name="Causa Caida" style="width: 90%; height: 80px"></textarea>
+		     </li>
+
+
+	        
+	        <li>Experimenta dejando caer la caja desde diferentes altura. A continuación contesta las siguientes preguntas
+	         <p>&nbsp;</p>	         
+		         <ol type="a">
+		         	<li>Describe los cambios en la gráfica <strong><em>velocidad vertical vs tiempo</em></strong> si la altura se incrementa.
+					<textarea id="Altura_mayor" name="Altura mayor" style="width: 90%; height: 80px"></textarea>
+		         	</li>
+
+		         	<li>Describe los cambios en la gráfica <strong><em>velocidad vertical vs tiempo</em></strong> si la altura disminuye.
+		         	<textarea id="Altura_menor" name="Altura menor" style="width: 90%; height: 80px"></textarea>
+		         	</li>
+		         </ol>
+			</li>
+			<p>&nbsp;</p>
+
+			<li>Las siguientes gráficas <em><strong>velocidad-tiempo</strong></em> se obtuvieron con diferentes ajustes de la simulación del helicóptero y la caja. Asigna el valor de 4 a la gráfica que represente la caída desde la mayor <strong>altura</strong> y así sucesivamente de manera decreciente hasta asignar el valor de 1 a la que represente la caída de menor altura. 
+
+			<p>&nbsp;</p>		
+			<div class="section" style="text-align: center">
+		      <div class="container">
+		        <div class="row">
+		          <div class="col-md-6">
+		            <img src="images/AC2_vt3b.png" class="img-responsive bordered" style="width: 450px">		            		       
+		            	<div style="">
+		            	<label> Selecciona una opción:</label> 
+						  <select class="form-control" id="Opcion 1" name="Opcion 1" value="">
+						    <option>1</option>
+						    <option>2</option>
+						    <option>3</option>
+						    <option>4</option>
+						  </select>
+						</div>
+		          </div>
+		          <div class="col-md-6">
+		            <img src="images/AC2_vt1b.png" class="img-responsive bordered" style="width: 450px">
+		            <div class="form-group">		             
+		            	 
+		            	<label> Selecciona una opción:</label>
+						  <select class="form-control" id="Opcion 2" name="Opcion 2" value="">
+						    <option>1</option>
+						    <option>2</option>
+						    <option>3</option>
+						    <option>4</option>
+						  </select>
+						 
+					</div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		    <p>&nbsp;</p>
+		    <div class="section" style="text-align: center">
+		      <div class="container">
+		        <div class="row">
+		          <div class="col-md-6">
+		            <img src="images/AC2_vt4b.png" class="img-responsive bordered" style="width: 450px">
+		            	<label> Selecciona una opción:</label>
+						  <select class="form-control" id="Opcion 3" name="Opcion 3" value="">
+						    <option>1</option>
+						    <option>2</option>
+						    <option>3</option>
+						    <option>4</option>
+						  </select>
+		          </div>
+		          <div class="col-md-6">
+		            <img src="images/AC2_vt2b.png" class="img-responsive bordered" style="width: 450px">
+		       		      <label> Selecciona una opción:</label>
+						  <select class="form-control" id="Opcion 4" name="Opcion 4" value="">
+						    <option>1</option>
+						    <option>2</option>
+						    <option>3</option>
+						    <option>4</option>
+						  </select>
+		          </div>
+		        </div>
+		      </div>
+		    </div>			
+			</li>
+			<p>&nbsp;</p>
+
+			<li>Elige una pareja de valores de velocidad y tiempo,<script type="math/tex">(t_0,v_0)</script>, <script type="math/tex">(t_1,v_1)</script>, de la tabla anterior y calcula el cociente <script type="math/tex">\large\frac{v_1-v_0}{t_1-t_0}</script><br> Escríbelo a continuación: 
+				<input  id="Cociente uno" name="Cociente uno" type='text'><p>&nbsp;</p>				
+			</li>
+
+			<li>Elige otra pareja diferente de valores de velocidad y tiempo,<script type="math/tex">(t_2,v_2)</script>, <script type="math/tex">(t_3,v_3)</script>, de la tabla anterior y calcula el cociente <script type="math/tex">\large\frac{v_3-v_2}{t_3-t_2}</script><br> Escríbelo a continuación: 
+				<input  id="Cociente dos" name="Cociente dos" type='text'><p>&nbsp;</p>				
+			</li>
+
+			<li>¿Cómo son los cocientes?
+				<textarea id="Cocientes iguales" name="Cocientes iguales" style="width: 90%; height: 80px"></textarea>
+			</li>
+			<p>&nbsp;</p>
+			<li>¿Qué mide el cociente que calculaste? Tip: ¿Qué unidades resultan del cociente?
+				<textarea id="Cambio de velocidad" name="Cambio de velocidad" style="width: 90%; height: 80px"></textarea>
+			</li>
+			<p>&nbsp;</p>
+			<li>¿Qué característica de la gráfica de la recta determina este cociente?
+				<textarea id="Determina inclinacion" name="Determina inclinacion" style="width: 90%; height: 80px"></textarea>
+			</li>			
+			<p>&nbsp;</p>
+			<li>¿Puede moverse un objeto cuando su aceleración es cero? Explica tu respuesta.
+			<textarea id="Movimiento aceleracion cero" name="Movimiento aceleracion cero" style="width: 90%; height: 80px"></textarea>
+		    </li>
+		    <p>&nbsp;</p>
+		    <li>¿Cuál es la aceleración de un auto de carreras que corre sobre una pista a una velocidad constante de 400Km/h? Explica tu respuesta.
+			<textarea id="Aceleracion Cero" name="Aceleracion Cero" style="width: 90%; height: 80px"></textarea>
+		    </li>
+
+     		</ol>   <!-- Fin de la lista ordenada -->     
+
+
+			<p>&nbsp;</p>
+          	<div class="form-group row">
+            <p >Presiona el botón "Enviar" para enviar tus respuestas y continuar con la siguiente actividad.</p>
+            <button id="PostBtn" type='submit' class="btn btn-success">Enviar</button>
+			<a href="Activity_2b.html" class="btn btn-success" id="btnNexAct">Siguiente Actividad</a>
+            <!-- <a href="Activity_2b.html" class="btn btn-success" id="btnNexAct">Siguiente Actividad</a><script type="text/javascript">$("#btnNexAct").hide();</script> -->
+          	</div>
+	      
+	    </form>     
+
+		</div> <!-- Panel Preguntas -->
+
+
+
+
+	</div>	<!-- End container fluid -->
+
+
+
+
+
+
+
+	<!-- Navbar bottom-->
+
+    <footer class="footer ">
+
+	<div class="btn-group dropup">
+	  	<button type="button" class="btn btn-default button-trans" style="top: 5px; margin-left: 10px;">Language</button>
+	  	
+	  	<button type="button" class="btn btn-default dropdown-toggle button-trans" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="top: 5px;">
+		    <span class="caret"></span>
+		    <span class="sr-only">Toggle Dropdown</span>
+	  	</button>
+	  	
+	  	<ul class="dropdown-menu">
+	    	<li><a href="#">en</a></li>
+	    	<li><a href="#">es</a></li>
+	    	<li><a href="#">fr</a></li>
+	   </ul>
+	</div>
+			        
+	<a id="modal-49036" href="#modal-container-49036" role="button" class="glyphicon glyphicon-info-sign pull-right" style="color:white; top: 15px; margin-right: 10px" data-toggle="modal">About</a>  
+    </footer>
+
+
+
+
+
+	
+
+
+
+
+
+                 
+
+
+
+
+	
+	<!-- Modal About-->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="modal fade" id="modal-container-49036" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel" style="text-align:center">Didactical Interactive Virtual Scenario (DIVS) Projectile Motion.
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div data-role="popup" id="popupAbout" class="ui-content" data-theme="none"  data-shadow="false">
+								<p style="text-align:center"><br>Programming and Didactical Design:<br>Arturo Rodríguez Espinosa (CINVESTAV México)<br>
+							    <br>In colaboration with:<br>
+							    Cécile de Hosson (LDAR Université Paris Diderot).<br>
+							    Fabrice Vandebrouck (LDAR Université Paris Diderot).<br>
+							    Carlos A. Cuevas Vallejo (CINVESTAV México).<br><br>
+							    &copy 2015
+							    </p>            
+							</div>
+						</div>
+						<div class="modal-footer"> 
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 			
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- Modal Edvi Settings-->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="modal fade" id="modal-edvi" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header"> 
+							<h4 class="modal-title" id="edviSetHeader" style="text-align:center">
+								Mueve los deslizadores para fijar la,
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div data-role="popup" id="popupAbout" class="ui-content" data-theme="none"  data-shadow="false">
+							            
+							<span id='spanH'>Altura: 25 </span><script type="math/tex"> m</script>
+							<input type="range" id="sliderH" value="25" min="1" max="100" step="1"/>
+							       
+<!-- 							<span id='spanV'>Horizontal Constant Speed: 25 </span><script type="math/tex"> m/s</script>
+							<input type="range" id="sliderV" value="25" min="0" max="50" step="1"/> -->
+       
+							</div>
+						</div>
+						<div class="modal-footer">
+							 
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> 	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- Modal Graph Settings-->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="modal fade" id="modal-graph" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel" id="graphSetHeader">Graph Settings</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-xs-6 box">
+								<h5   id="axisXHeader">Eje X: </h5>
+									<select id="Xaxis" class="Xaxis-select">
+									  	<option id="lblTime" selected value="Time">Tiempo</option>
+									  	<!-- <option>2</option>
+									 	<option>3</option>
+									  	<option>4</option>
+									  	<option>5</option> -->
+									</select>									
+								</div>
+								<div class="col-xs-6 box">
+								<h5   id="axisYHeader">Eje Y: </h5>
+									<select id="Yaxis" class="Yaxis-select">
+									  	<option id="lblVS" value="Vertical Speed">Velocidad vertical</option>
+									  	<option id="lblVD" value="Vertical Distance">Desplazamiento vertical</option>
+									  	<!-- <option id="lblH" value="Height">Altura</option> -->									  	
+						 
+									</select>				
+								</div> 
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+
+
+
+
+
+    </body>    
+
+</html>
