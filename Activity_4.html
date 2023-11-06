@@ -10,34 +10,39 @@
         <title>Movimiento compuesto del proyectil</title> 
     
       <!-- Jquery-->
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
       <!-- Bootstrap core CSS -->
-      <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <script src="bootstrap/js/bootstrap.min.js"></script>           
+      <link href="static/Activity4/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <script src="static/Activity4/bootstrap/js/bootstrap.min.js"></script>           
       
-      <link href="css/sticky-footer-navbar.css" rel="stylesheet"> 
+      <link href="static/Activity4/css/sticky-footer-navbar.css" rel="stylesheet"> 
       
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
 
       <!-- JsxGraph-->
-      <link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
-      <script type="text/javascript" src="js/jsxgraphcore.js"></script>
+      <link rel="stylesheet" type="text/css" href="static/Activity4/css/jsxgraph.css" />
+      <script type="text/javascript" src="static/Activity4/js/jsxgraphcore.js"></script>
 
       <!-- Grid-->
-      <script src="LinearDrag3/js/mindmup-editabletable.js"></script>
+      <script src="static/Activity4/js/mindmup-editabletable.js"></script>
                
       <!-- MathJax-->
-      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> 
-        </script>
-      <script type="text/x-mathjax-config"> MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} }); </script>
+      <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+      </script>
 
-      <script src="js/particle.js"></script>
-      <script src="js/vector2D.js"></script>
-      <script src="js/ball.js"></script>
-      <script src="js/Activity_4.js"></script>
+      <script src="static/Activity4/js/particle.js"></script>
+      <script src="static/Activity4/js/vector2D.js"></script>
+      <script src="static/Activity4/js/ball.js"></script>
+      <script src="static/Activity4/js/Activity_4.js"></script>
 
-      <script src="js/google-sheets-Activity_4.js"></script>
+      <script src="static/Activity4/js/google-sheets-Activity_4.js"></script>
       
   </head>
     
@@ -294,7 +299,8 @@
             <div class="form-group row">
             <p >Presiona el botón "Enviar" para enviar tus respuestas y continuar con la siguiente actividad.</p>
             <button id="PostBtn" type='submit' class="btn btn-success">Enviar</button>
-            <a href="Activity_4b.html" class="btn btn-success" id="btnNexAct">Siguiente Actividad</a><script type="text/javascript">$("#btnNexAct").hide();</script>
+            <!-- <a href="Activity_4b.html" class="btn btn-success" id="btnNexAct">Siguiente Actividad</a><script type="text/javascript">$("#btnNexAct").hide();</script> -->
+            <a href="Activity_4b.html" class="btn btn-success" id="btnNexAct">Siguiente Actividad</a>
             </div>
         
       </form>     

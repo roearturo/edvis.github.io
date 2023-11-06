@@ -7,28 +7,33 @@
       <title>Free Fall Movement</title> 
       
       <!-- Jquery -->
-      <script src="js/jquery-1.10.2.js"></script>   
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>  
       <script>$(document).bind("mobileinit", function (){$.mobile.ajaxEnabled = false;});</script>
       
       <!-- Jquery Mobile-->
-      <link rel="stylesheet" href="css/greend.min.css" />    
-      <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+      <link rel="stylesheet" href="static/Activity5/css/greend.min.css" />    
+      <link rel="stylesheet" href="static/Activity5/css/jquery.mobile.icons.min.css" />
       <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />   
       <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
       
       <!-- JsxGraph-->
-      <link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
-      <script type="text/javascript" src="js/jsxgraphcore.js"></script>
+      <link rel="stylesheet" type="text/css" href="static/Activity5/css/jsxgraph.css" />
+      <script type="text/javascript" src="static/Activity5/js/jsxgraphcore.js"></script>
       
-      <<!-- MathJax-->
-      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> 
+      <!-- MathJax-->
+      <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
       </script>
-      <script type="text/x-mathjax-config"> MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} }); </script>
 
-      <script src="js/particle.js"></script>
-      <script src="js/vector2D.js"></script>
-      <script src="js/ball.js"></script>  
-      <script src="js/Activity_5.js"></script> 
+      <script src="static/Activity5/js/particle.js"></script>
+      <script src="static/Activity5/js/vector2D.js"></script>
+      <script src="static/Activity5/js/ball.js"></script>  
+      <script src="static/Activity5/js/Activity_5.js"></script> 
      
   </head>
   <style type="text/css">
