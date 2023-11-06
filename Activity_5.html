@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  
+<head>  
+      <meta name="apple-mobile-web-app-capable" content="yes" charset="UTF-8">        
+      <meta name="viewport" content="width=device-width, initial-scale=1"> 
+      <title>Free Fall Movement</title> 
+      
+      <!-- Jquery -->
+      <script src="js/jquery-1.10.2.js"></script>   
+      <script>$(document).bind("mobileinit", function (){$.mobile.ajaxEnabled = false;});</script>
+      
+      <!-- Jquery Mobile-->
+      <link rel="stylesheet" href="css/greend.min.css" />    
+      <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />   
+      <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+      
+      <!-- JsxGraph-->
+      <link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+      <script type="text/javascript" src="js/jsxgraphcore.js"></script>
+      
+      <<!-- MathJax-->
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> 
+      </script>
+      <script type="text/x-mathjax-config"> MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} }); </script>
+
+      <script src="js/particle.js"></script>
+      <script src="js/vector2D.js"></script>
+      <script src="js/ball.js"></script>  
+      <script src="js/Activity_5.js"></script> 
+     
+  </head>
+  <style type="text/css">
+    .ui-slider-input {
+         display : none !important;
+         display: inline-block;
+         text-align: center;         
+      }  
+  </style>
+<body>  
+  
+<div data-role="page" id="page2" data-theme="d">
+      <div data-role="header" data-theme="c"> <h1>Free Fall Movement</h1> </div>
+    
+      <div data-role="main" class="ui-content " data-theme="c">           
+      
+      <div style="margin:0 auto">     <!--Contenedor Grid-->
+        
+        <div data-role="collapsible" class="ui-corner-all custom-corners" style=" width:95%;margin:0 auto">
+            <h4>Instructions</h4>
+          <p>Take control of the helicopter, by moving the sliders to change the movement of the helicopter. Use the "Run" button to run the simulation</p>
+        </div>
+
+        <div style=" height:10px;margin:0 auto"></div>
+
+        <div class="ui-grid-b " style=" width:95%;margin:0 auto">    <!-- Main Grid ui-responsive to make responsive-->          
+          <div  class="ui-block-a " >                                             <!-- Block A-->
+            
+            <a href="#edviSettings" class="ui-btn  ui-btn-c ui-corner-all ui-shadow" data-rel="popup" 
+            data-position-to="window"  style="data-inline=true">Helicopter Settings</a>
+
+          </div><!-- End Block A-->
+          
+          <div  class="ui-block-b" >                                                <!-- Block B-->
+            
+            <a href="#graphSettings" class="ui-btn ui-btn-c ui-corner-all ui-shadow" data-rel="popup" 
+            data-position-to="window"  style="data-inline=true">Helicopter Graph Settings</a>
+          
+
+          <div style=" height:2px;margin:0 auto"></div>
+
+          </div><!-- End block B-->
+
+          <div  class="ui-block-c" >                                                <!-- Block C-->
+            
+            <a href="#graph2Settings" class="ui-btn ui-btn-c ui-corner-all ui-shadow" data-rel="popup" 
+            data-position-to="window"  style="data-inline=true">Box Graph Settings</a>
+          
+            <div style=" height:2px;margin:0 auto"></div>
+
+          </div><!-- End block C-->
+
+
+
+          <div  class="ui-block-a " >                                             <!-- Block A-->
+            <div class="ui-body ui-body-d ui-corner-all ">            
+              <div id="edvi" class="jxgbox" style="width:100%; height:300px; display:block;margin-left:auto;margin- right:auto;"></div>
+            </div>
+          </div><!-- End block A-->
+          
+          <div  class="ui-block-b" >                                                <!-- Block B-->
+            <div class="ui-body ui-body-d ui-corner-all ">            
+                <div id="graph" class="jxgbox" style="width:100%; height:300px; display:block;margin-left:auto;margin- right:auto;"></div>
+            </div>                
+
+          </div><!-- End block B-->
+
+          <div  class="ui-block-c" >                                                <!-- Block C-->
+            <div class="ui-body ui-body-d ui-corner-all ">            
+                <div id="graph2" class="jxgbox" style="width:100%; height:300px; display:block;margin-left:auto;margin- right:auto;"></div>
+            </div>        
+          <div style=" height:10px;margin:0 auto"></div>
+
+          </div><!-- End block C-->
+
+          
+            
+          
+          <div class="ui-body ui-body-d ui-corner-all" style="text-align:center;background-color:#16A086" >
+            <button id='StartBtn' type="button" data-inline="true"> Run </button>
+            <button id='ResetBtn' type="button" data-inline="true"> Reset </button>     
+            <!-- <button id='TableBtn' type="button" data-inline="true"> SpreadSheet </button>  -->           
+          </div>
+               
+        </div><!--End Grid-->
+
+        
+      </div><!--Fin del contenedor Grid-->
+
+      
+    </div><!-- Main -->
+
+    <!-- Dialog Edvi Settings-->
+    <div data-role="popup" id="edviSettings" class="ui-content" data-theme="a">       
+        
+        <div  data-role='header' style="text-align:center"><p>Move the sliders to set,</p></div>          
+                    
+        <div data-role="content" style="margin:0 auto;margin-left:auto;margin-right:auto;align:center;
+          text-align:center;background-color:#F9F9F9">                  
+          <span id='spanH'>Height: 25 </span><script type="math/tex"> m</script>
+          <input data-type="range" data-mini="true" name="sliderH" id="sliderH" value="25" min="1" max="100" step="0.1"/>
+ <!--          <span id='spanG'>Free fall acceleration: 9.8 </span> <script type="math/tex">m/s^2</script>
+          <input data-type="range" data-mini="true" name="sliderG" id="sliderG" value="9.8" min="1" max="25" step="0.1"/> -->
+          <span id='spanV'>Initial Constant Speed: 10 </span><script type="math/tex"> m/s</script>
+          <input data-type="range" data-mini="true" name="sliderV" id="sliderV" value="10" min="1" max="30" step="0.1"/>
+          <span id='spanD'>Distance to drop the crane: 10 </span><script type="math/tex"> m</script>
+          <input data-type="range" data-mini="true" name="sliderD" id="sliderD" value="10" min="0.1" max="80" step="0.1"/>      
+        </div>      
+        
+        <div data-role="footer" class="ui-content" style="text-align:justify">      
+          <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini" data-rel="back" style="display:block;margin-left:auto;margin-right:auto;">Close</a>
+        </div>
+
+      </div>
+    
+
+    <!-- Dialog Graph Settings-->
+      <div data-role="popup" id="graphSettings" class="ui-content" data-theme="b">
+            
+            <h2 style="text-align:center" data-role="header">Graph 1 Settings</h2>
+            <div class="ui-grid-a ">
+        
+              <div class="ui-block-a">
+              <fieldset data-role="controlgroup" data-mini="true" style="width:250px" >
+                <h3  style="text-align:center" class="ui-responsive">Axis X:</h3>
+                
+                <input type="radio" class="sEjeX" name="rdioX" id="rtimeX" value="Time" checked="checked">
+                <label for="rtimeX">Time</label>
+               <!--  <input type="radio" class="sEjeX" name="rdioX" id="rHeightX" value="Height">
+                <label for="rHeightX">Height</label>
+                <input type="radio" name="rdioX" id="rdioSpdX" value="Vertical Speed">
+                <label for="rdioSpdX">Vertical Speed</label>
+                <input type="radio" class="sEjeX" name="rdioX" id="rdioAccX" value="Vertical Acceleration">
+                <label for="rdioAccX">Vertical Acceleration</label>
+
+                <input type="radio" class="sEjeX" name="rdioX" id="rdioSpdXH" value="Horizontal Speed">
+                <label for="rdioSpdXH">Horizontal Speed</label>  
+
+                <input type="radio" class="sEjeX" name="rdioX" id="rdioAccXH" value="Horizontal Acceleration">
+                <label for="rdioAccXH">Horizontal Acceleration</label>
+                <input type="radio" class="sEjeX" name="rdioX" id="rdioDistanceX" value="Horizontal Distance">
+                <label for="rdioDistanceX">Horizontal Distance</label>   
+
+                -->
+
+
+
+              </fieldset>   
+              </div>
+
+                <div class="ui-block-b">
+                <fieldset data-role="controlgroup" data-mini="true" style="width:250px">
+                <h3  style="text-align:center" class="ui-responsive">Axis Y:</h3>
+                
+                <!-- <input type="radio" class="sEjeY" name="rdioY" id="rHeightY" value="Height"  checked="checked">
+                <label for="rHeightY">Height</label>
+                <input type="radio" class="sEjeY" name="rdioY" id="rdioSpdY" value="Vertical Speed">
+                <label for="rdioSpdY">Vertical Speed</label>
+                <input type="radio" class="sEjeY" name="rdioY" id="rdioAccY" value="Vertical Acceleration">
+                <label for="rdioAccY">Vertical Acceleration</label> 
+                <input type="radio" class="sEjeY" name="rdioY" id="rdioAccYH" value="Horizontal Acceleration">
+                <label for="rdioAccYH">Horizontal Acceleration</label>
+
+                -->
+
+                <input type="radio" class="sEjeY" name="rdioY" id="rdioSpdYH" value="Horizontal Speed">
+                <label for="rdioSpdYH">Horizontal Speed</label>
+
+
+
+                <input type="radio" class="sEjeY" name="rdioY" id="rdioDistanceY" value="Horizontal Distance">
+                <label for="rdioDistanceY">Horizontal Distance</label>   
+
+              </fieldset>                   
+                </div>                        
+            </div>
+
+                   
+       </div>
+
+
+       <!-- Dialog Graph2 Settings-->
+      <div data-role="popup" id="graph2Settings" class="ui-content" data-theme="b">
+            
+            <h2 style="text-align:center" data-role="header">Graph 2 Settings</h2>
+            <div class="ui-grid-a ">
+        
+              <div class="ui-block-a">
+              <fieldset data-role="controlgroup" data-mini="true" style="width:250px" >
+                <h3  style="text-align:center" class="ui-responsive">Axis X:</h3>
+                <input type="radio" class="sEjeX2" name="rdioX2" id="rtimeX2" value="Time" checked="checked">
+                <label for="rtimeX2">Time</label>
+<!--                 <input type="radio" class="sEjeX2" name="rdioX2" id="rHeightX2" value="Height">
+                <label for="rHeightX2">Height</label>
+                <input type="radio" class="sEjeX2" name="rdioX2" id="rdioSpdX2" value="Vertical Speed">
+                <label for="rdioSpdX2">Vertical Speed</label>
+                <input type="radio" class="sEjeX2" name="rdioX2" id="rdioAccX2" value="Vertical Acceleration">
+                <label for="rdioAccX2">Vertical Acceleration</label>
+
+                <input type="radio" class="sEjeX2" name="rdioX2" id="rdioSpdXH2" value="Horizontal Speed">
+                <label for="rdioSpdXH2">Horizontal Speed</label>  
+
+                <input type="radio" class="sEjeX2" name="rdioX2" id="rdioAccXH2" value="Horizontal Acceleration">
+                <label for="rdioAccXH2">Horizontal Acceleration</label>
+                <input type="radio" class="sEjeX2" name="rdioX2" id="rdioDistanceX2" value="Horizontal Distance">
+                <label for="rdioDistanceX2">Horizontal Distance</label> 
+                  -->
+
+
+
+
+
+              </fieldset>   
+              </div>
+
+                <div class="ui-block-b">
+                <fieldset data-role="controlgroup" data-mini="true" style="width:250px">
+                <h3  style="text-align:center" class="ui-responsive">Axis Y:</h3>
+                
+                <!-- <input type="radio" class="sEjeY2" name="rdioY2" id="rtimeY2" value="Time">
+                <label for="rtimeY2">Time</label>
+                <input type="radio" class="sEjeY2" name="rdioY2" id="rHeightY2" value="Height"  >
+                <label for="rHeightY2">Height</label>
+                <input type="radio" class="sEjeY2" name="rdioY2" id="rdioSpdY2" value="Vertical Speed" checked="checked">
+                <label for="rdioSpdY2">Vertical Speed</label>
+                <input type="radio" class="sEjeY2" name="rdioY2" id="rdioAccY2" value="Vertical Acceleration">
+                <label for="rdioAccY2">Vertical Acceleration</label>
+                <input type="radio" class="sEjeY2" name="rdioY2" id="rdioAccYH2" value="Horizontal Acceleration">
+                <label for="rdioAccYH2">Horizontal Acceleration</label>
+ -->
+                <input type="radio" class="sEjeY2" name="rdioY2" id="rdioSpdYH2" value="Horizontal Speed">
+                <label for="rdioSpdYH2">Horizontal Speed</label>
+
+                <input type="radio" class="sEjeY2" name="rdioY2" id="rdioDistanceY2" value="Horizontal Distance">
+                <label for="rdioDistanceY2">Horizontal Distance</label> 
+
+              </fieldset>                   
+                </div>                        
+            </div>
+
+                   
+       </div>
+
+
+    <!-- Dialog Graph Settings-->
+
+<div data-role="collapsible" class="ui-corner-all custom-corners" style=" width:100%;margin:0 auto" data-theme="c">
+          <h4>Ready?</h4>
+          <form id="login" action="" method=""> 
+        <div class="ui-grid-a " id="custom-grid" data-theme="c" style=" width:100%;margin:0 auto">
+           
+            <div  class="ui-block-a " data-theme="c" >                           
+             <p>Type the password provided by the instructor to go to the next activity:</p>             
+            </div>
+            
+            <div  class="ui-block-b" data-theme="dc" id="GridButton">
+              <p></p>  
+            </div>
+
+            <div  class="ui-block-a " data-theme="c" >                              
+              <input name="pwtext" id="pwtext" placeholder="" value="" type="text" class="required" data-theme="c" /> 
+            </div>
+            
+            <div  class="ui-block-b" data-theme="c">                
+            <input type="submit" data-ajax="true" class="ui-btn ui-corner-all ui-btn ui-btn-c" data-theme="c" value="Ok" id="passBtn"/>
+            </div>
+        </div>
+        </form>         
+      </div>
+
+
+
+    <!--Footer-->
+ 
+                               
+    </div> 
+         
+   
+</body>
+
+  
+
+  
+
+</html>
+
+
