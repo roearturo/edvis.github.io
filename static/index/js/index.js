@@ -1,4 +1,5 @@
-$(document).ready(function() {	
+function my_code(){
+
 	
 	JXG.Options.board.minimizeReflow='none'		
 
@@ -235,4 +236,4 @@ $(document).ready(function() {
 		
 
 
-}) 
+} 
