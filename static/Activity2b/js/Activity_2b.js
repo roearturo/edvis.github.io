@@ -1,4 +1,5 @@
 var cuantaAyuda=[];
+
 function Activity2bcode(){
     JXG.Options.board.minimizeReflow='none'
     var board = JXG.JSXGraph.initBoard('edvi',{
