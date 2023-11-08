@@ -1,5 +1,5 @@
 var cuantaAyuda=[];
-window.onload = function() { 	
+$(document).ready(function() {
 
 
 

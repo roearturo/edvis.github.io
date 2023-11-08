@@ -1,4 +1,4 @@
-window.onload = function() { 	
+$(document).ready(function() {	
 	
 	JXG.Options.board.minimizeReflow='none'		
 
