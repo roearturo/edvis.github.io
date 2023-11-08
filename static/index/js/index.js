@@ -1,4 +1,4 @@
-function my_code(){
+function indexcode(){
 
 	
 	JXG.Options.board.minimizeReflow='none'		
