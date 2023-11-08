@@ -1,4 +1,4 @@
-$(function(){ 
+jQuery(function( $ ) {	
   
   //-----------------------------Dibuja escenario -------------------------------// 
 JXG.Options.board.minimizeReflow = 'none';         

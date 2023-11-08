@@ -1,5 +1,5 @@
 var cuantaAyuda=[];
-jQuery(function( $ ) {	
+jQuery(function( $ ) {		
 
 
 

@@ -1,5 +1,5 @@
 var cuantaAyuda=[];
-$(function(){ 
+jQuery(function( $ ) {	
 
   JXG.Options.board.minimizeReflow='none'   
   //-----------------------------Dibuja escenario -------------------------------// 

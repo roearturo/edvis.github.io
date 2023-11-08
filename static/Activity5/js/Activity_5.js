@@ -1,4 +1,4 @@
-$(function(){	
+jQuery(function( $ ) {		
 	
 	//-----------------------------Dibuja escenario -------------------------------// 
 	// Para correr en chrome mobile JXG.Options.board.minimizeReflow = 'none';             Mejora frames habrá que activarlo selectivamente
