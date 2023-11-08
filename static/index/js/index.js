@@ -1,4 +1,4 @@
-$(function(){ 
+jQuery(function( $ ) {	
 	
 	JXG.Options.board.minimizeReflow='none'		
 
