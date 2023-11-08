@@ -1,4 +1,4 @@
-jQuery(function( $ ) {	
+function Activity3code() {
   
   //-----------------------------Dibuja escenario -------------------------------// 
 JXG.Options.board.minimizeReflow = 'none';         
@@ -402,7 +402,7 @@ var ejeYLbl = board.create('text', [-10,30,'$altura$\\ \\ \\ \\$(m)$'],{cssClass
       }
 
 
-});
+};
 
     
   

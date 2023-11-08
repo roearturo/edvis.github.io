@@ -1,4 +1,4 @@
-jQuery(function( $ ) {	 
+function Fase2code(){
   //-----------------------------Dibuja escenario -------------------------------//   
     JXG.Options.board.minimizeReflow='none'
     var board = JXG.JSXGraph.initBoard('edvi',{
@@ -399,7 +399,7 @@ $('#ploteaBtn').click(function() {
 
  
 
-});
+};
 
     
   

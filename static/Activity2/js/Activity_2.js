@@ -1,5 +1,5 @@
 var cuantaAyuda=[];
-jQuery(function( $ ) {	
+function Activity2code(){
     JXG.Options.board.minimizeReflow='none'
     var board = JXG.JSXGraph.initBoard('edvi',{
       boundingbox:[-20,100,5,-5], //xmin,ymax,xmax,ymin
@@ -751,7 +751,7 @@ var ejeXLbl = graph.create('text', [5.5,-7,'$tiempo$\\ \\ \\ \\$(s)$']);
     //------------------------Lang------------------------------
 
  
-});
+};
 
     
   

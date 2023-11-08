@@ -1,4 +1,4 @@
-jQuery(function( $ ) {	
+function Activity4code(){
     JXG.Options.board.minimizeReflow='none'   
 
 		
@@ -720,7 +720,7 @@ jQuery(function( $ ) {
             }          
           });
       }
-});
+};
 
 		
 	

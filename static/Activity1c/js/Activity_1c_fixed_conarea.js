@@ -1,5 +1,5 @@
 var cuantaAyuda=[];
-jQuery(function( $ ) {	
+function Activity1ccode(){
 
   JXG.Options.board.minimizeReflow='none'   
   //-----------------------------Dibuja escenario -------------------------------// 
@@ -713,7 +713,7 @@ var graph= JXG.JSXGraph.initBoard('graph',{
 
 
 
-});
+};
 
     
   

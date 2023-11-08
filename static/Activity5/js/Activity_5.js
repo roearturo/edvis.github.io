@@ -1,4 +1,4 @@
-jQuery(function( $ ) {		
+function Activity5code(){
 	
 	//-----------------------------Dibuja escenario -------------------------------// 
 	// Para correr en chrome mobile JXG.Options.board.minimizeReflow = 'none';             Mejora frames habrá que activarlo selectivamente
@@ -1214,7 +1214,7 @@ var graph2= JXG.JSXGraph.initBoard('graph2',{
 	        return false;
 	    }
 	});
-});
+};
 
 		
 	
