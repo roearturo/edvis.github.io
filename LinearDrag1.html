@@ -1,0 +1,359 @@
+<html><head>
+    <meta name="apple-mobile-web-app-capable" content="yes" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head
+    content must come *after* these tags -->
+    <title>Projectile Motion</title>
+    <!-- Bootstrap core CSS -->
+    <link href="LinealDrag1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template <link href="css/navbar-fixed-top.css"
+    rel="stylesheet">-->
+    <!-- Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- JsxGraph-->
+    <link rel="stylesheet" type="text/css" href="css/jsxgraph.css">
+    <script type="text/javascript" src="js/jsxgraphcore.js"></script>
+    <script src="LinealDrag1/js/particle.js"></script>
+    <script src="LinealDrag1/js/vector2D.js"></script>
+    <script src="LinealDrag1/js/ball.js"></script>
+    <script src="LinealDrag1/js/data.js"></script>
+     
+
+    <script type="text/javascript" language="javascript" src="LinealDrag1/js/LinearDrag1.js"></script>
+    <script type="text/javascript" language="javascript" src="LinealDrag1/js/signature_pad.min.js"></script>
+    <!--Language-->
+    <script type="text/javascript" src="LinealDrag1/js/jquery.i18n.properties-min-1.0.9.js"></script>
+    <script src="LinealDrag1/js/jquery.min.js"></script>
+    <script src="LinealDrag1/js/bootstrap.min.js"></script>
+    <link href="LinealDrag1/css/sticky-footer-navbar.css" rel="stylesheet">
+    
+          <!-- Grid-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="LinealDrag1/js/mindmup-editabletable.js"></script>
+    <script src="LinealDrag1/js/numeric-input-example.js"></script>
+
+    <script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+			});
+		</script>
+
+    <style>
+
+      .navbar {
+        background-color: #16A086
+      }
+                    
+      .navbar-default .navbar-brand {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        text-align: center;
+        margin: 0 auto;
+        color: #FFF;
+      }
+                    
+      .navbar-toggle {
+        z-index: 3;
+      }
+                    
+      .button-trans {
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        color: white
+      }
+      .panel {
+        padding-left: 35px;
+        padding-right: 35px;
+        padding-bottom: 25px;
+      }
+
+      th, td {
+      text-align: center;
+      }
+    </style>
+  </head><body>
+    <!-- Navbar bottom-->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" id="headerTitle">Movement of an object in free fall</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li>
+            <img src="images/logo-cinvestav.png" alt="">
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <img src="images/logo-paris-diderot.png" alt="" width="120">
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Cuerpo -->
+    <div class="container-fluid">
+    
+    <div class="col-md-12 panel panel-default">
+    <!-- Instrucciones -->
+        <div class="row">
+          <h2 id="p">Instrucciones.</h2>
+          <p>A continuación se muestra un escenario que simula la caída de una caja en condiciones ideales (en el vacío).Presiona el botón Play para iniciar la simulación.</p>
+          
+        </div>
+    </div>
+      
+    <div class="col-md-12 panel panel-default">
+      
+      <div style="height: 20px"></div>        
+     
+        <div class="row">
+          <!-- EDVI -->   
+          <div  class="col-md-5" >
+
+            <div id="edvi" class="row" style="height:500px; display:block;margin-left:auto;margin-right:auto;">     
+            </div>
+
+            <div class="row btn-group inline " style=" display:block;margin-left:auto;margin-right:auto;">
+              <button id="PlayBtn" type="button" class="btn btn-primary btn-lg btn-block">Play</button>
+              <!-- <button id="PlayBtn" type="button" class="btn btn-success" style="">Play</button> -->
+            </div>
+
+          </div>
+
+          <div class="col-md-7">
+
+            <h4 style="text-align: center;">Parámetros del helicóptero</h2>
+            <div style="height: 120px"></div>
+            
+            <div style="width: 80%; display:block;margin-left:auto;margin-right:auto;">
+              <span id='spanH'>Height: 25 </span><script type="math/tex">m</script>
+              <input type="range" id="sliderH" value="25" min="1" max="100" step="1"/>
+
+              <span id='spanG'>Acceleration: 9.8 </span><script type="math/tex">m/s^2</script>
+              <input type="range" id="sliderG" value="9.8" min="1" max="20" step="1"/>
+                     
+              <span id='spanV'>Vertical Constant Speed: 0 </span><script type="math/tex"> m/s</script>
+              <input type="range" id="sliderV" value="0" min="-30" max="0" step="1"/>
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+<!--           <div class="row" style="margin: 0 auto; text-align: center;">
+            <div class="btn-group inline" >
+              <button id="PlayBtn" type="button" class="btn btn-success" style="width:200px">Play</button>
+              <button id="hsTitle" href="#modal-edvi" type="button" class="btn btn-success btn-block" data-toggle="modal" style="width:200px">
+                Helicopter Settings
+              </button>
+            </div>                  
+            
+          </div>
+
+          <div class="row" style="margin: 0 auto; text-align: center;">
+            <button id="resetBtn" type="button" class="btn btn-success" style="width:400px">Reset</button>
+          </div> -->
+     
+        
+    </div>
+
+
+    
+
+      
+    <div class="col-md-12 panel panel-default">
+      <div style="height:10px"></div>
+        
+      <div class="row">
+        
+        <div class="col-md-4">
+<!--           <button id="TableBtn"  type="button" class="btn btn-success btn-block" style="width:250px;display:block;margin-left:auto;margin-right:auto;">Tabla de Valores
+          </button> -->
+        
+          <div class="row" id="Tabla">
+
+            <table id="tabulacionTable" class="table table-striped" style="width:250px; height: 380px; overflow: auto; display:block;margin-left:auto;margin-right:auto ">
+              <tbody>
+                <thead>
+                  <tr>
+                    <th>Tiempo <script type="math/tex">(s)</script> </th>
+                    <th> Velocidad <script type="math/tex">(m/s)</script></th>
+                  </tr>
+                </thead>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        
+
+        <div class="col-md-8">
+
+          <div class="row" style="margin: 0 auto; text-align: center; width:90%">
+            
+            <div id="graphPlot" class="center-block" style="height:353px; width:90%"></div>
+            
+            <div class="btn-group inline btn-group-justified" style="margin: 0 auto; text-align: center; width:90%" >
+              <a id="ploteaBtn" class="btn btn-success" role="button">Graficar</a>
+              <a id="resetGraphBtn" class="btn btn-success" role="button">Reset</a>
+            </div>            
+          </div>
+          
+          <div class="row" style="margin: 0 auto; text-align: center; width:90%">
+            
+
+
+<!--             <div class="btn-group inline" >
+              <button id="ploteaBtn" type="button" class="btn btn-success" style="width:200px">Graficar</button>
+              <button id="resetGraphBtn" type="button" class="btn btn-success btn-block" style="width:200px">
+                Reset
+              </button>
+            </div> -->
+          
+          </div>  
+                 
+        </div>
+      
+      </div>
+    </div>     
+      
+
+<!--     <div class="col-md-12 panel panel-default">
+        <div class="row">
+          <br>
+          <p>A continuación contesta las siguientes preguntas:</p>
+        </div>
+
+        <div class="section">
+          <div class="container">
+            <div class="row">
+              <div  >
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+<!--     <div class="col-md-12 panel panel-default">
+         <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
+    </div> -->
+
+
+    </div>
+
+             
+
+
+
+
+
+    <!-- Navbar bottom-->
+    <footer class="footer ">
+      <div class="btn-group dropup">
+        <button type="button" class="btn btn-default button-trans" style="top: 5px; margin-left: 10px;">Language</button>
+        <button type="button" class="btn btn-default dropdown-toggle button-trans" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="top: 5px;">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="#">en</a>
+          </li>
+          <li>
+            <a href="#">es</a>
+          </li>
+          <li>
+            <a href="#">fr</a>
+          </li>
+        </ul>
+      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a id="modal-49036" href="#modal-container-49036" role="button" class="glyphicon glyphicon-info-sign pull-right" style="color:white; top: 15px; margin-right: 10px" data-toggle="modal">About</a>
+    </footer>
+
+          <!-- Modal -->
+          <div class="modal fade" id="modal-container-49036" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                  <h4 class="modal-title" id="myModalLabel">
+                    <p style="text-align:center">Didactical Interactive Virtual Scenario (DIVS) Free Fall
+                      <br>
+                    </p>
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <div data-role="popup" id="popupAbout" class="ui-content" data-theme="none" data-shadow="false">
+                    <p style="text-align:center">
+                      <br>Programming and Didactical Design:
+                      <br>Arturo Rodríguez Espinosa (CINVESTAV México)
+                      <br>
+                      <br>In colaboration with:
+                      <br>Cécile de Hosson (LDAR Université Paris Diderot).
+                      <br>Fabrice Vandebrouck (LDAR Université Paris Diderot).
+                      <br>Carlos A. Cuevas Vallejo (CINVESTAV México).
+                      <br>
+                      <br>© 2015</p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <!-- Modal Graph Settings-->
+
+      <div class="modal fade" id="modal-edvi" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header"> 
+              <h4 class="modal-title" id="edviSetHeader" style="text-align:center">
+                Move the sliders to set,
+              </h4>
+            </div>
+            <div class="modal-body">
+              <div data-role="popup" id="popupAbout" class="ui-content" data-theme="none"  data-shadow="false">
+                          
+              <span id='spanH'>Height: 25 </span><script type="math/tex"> m</script>
+              <input type="range" id="sliderH" value="25" min="1" max="100" step="1"/>
+
+              <span id='spanG'>Acceleration: 9.8 </span><script type="math/tex"> m/s^2</script>
+              <input type="range" id="sliderG" value="9.8" min="1" max="20" step="1"/>
+                     
+              <span id='spanV'>Vertical Constant Speed: 0 </span><script type="math/tex"> m/s</script>
+              <input type="range" id="sliderV" value="0" min="-30" max="0" step="1"/>
+       
+              </div>
+            </div>
+            <div class="modal-footer">
+               
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>   
+            </div>
+          </div>
+        </div>
+      </div>
+
+  
+
+</body></html>
