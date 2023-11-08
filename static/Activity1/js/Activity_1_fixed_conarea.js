@@ -1,5 +1,5 @@
 var cuantaAyuda=[];
-$(document).ready(function() {
+$(document).ready(function() { 
 
 
 
@@ -712,9 +712,9 @@ $('#myModal').on('shown.bs.modal', function() {
       }*/
 
 
+    });
 
 
-});
 
     
   
