@@ -1,4 +1,5 @@
-$(function(){   
+$(function(){  
+    
   //-----------------------------Dibuja escenario -------------------------------//   
     JXG.Options.board.minimizeReflow='none'
     var board = JXG.JSXGraph.initBoard('edvi',{
@@ -24,15 +25,15 @@ $(function(){
       zoom : {
         factorX : 1.5,   
         factorY : 1.5,   
-         wheel: true,
+         wheel: false,
       }
     }); 
     
     
     var boardGraphPlot = JXG.JSXGraph.initBoard('graphPlot',{
       //boundingbox:[-10,10,10,-10], //xmin,ymax,xmax,ymin      
-      boundingbox:[-1,20,6,-3], //xmin,ymax,xmax,ymin
-      keepaspectratio:false, 
+      boundingbox:[-1,25,10,-1], //xmin,ymax,xmax,ymin
+      keepaspectratio:true, 
       axis:false,      
       showCopyright:false,
 
@@ -123,8 +124,13 @@ $(function(){
     console.log(animTime);
     
   //  var animTime=Math.sqrt(2*pos0.y/acc.y);   
-    
- 
+
+//---------------------PAD----------------------//
+
+ /*   var slopeCopia = new SignaturePad(document.getElementById('copiaGraphDraw'), {
+          backgroundColor: 'rgba(255, 255, 255, 0)',
+          penColor: 'rgb(0, 0, 0)'
+        });*/
 
     //-------------------------Objeto en caída libre-------------// 
     
@@ -185,7 +191,7 @@ $(function(){
       ball.velo2D=new Vector2D(0,acc.y*(animTime));  
       t=animTime; 
       board.update();
-      generaTabla();
+      //generaTabla();
                 
     };
 
@@ -200,13 +206,6 @@ $(function(){
       var colores=["#C39BD3","#7FB3D5","#76D7C4","#7DCEA0","#F8C471","#F0B27A","#239B56","#EC7063","#99A3A4"];
       var randomNumber= Math.floor(Math.random() * colores.length);
       return colores[randomNumber];
-     
-      /*long=6;
-      var caracteres = "0123456789ABCDEF";
-      var color = "";
-      for (i=0; i<long; i++) color += caracteres.charAt(Math.floor(Math.random()*caracteres.length));
-      color="#"+color;
-      return color;*/
     }
 
 
@@ -223,6 +222,32 @@ $(function(){
       board.update();   
     };
 
+    //-------------------Ecuacion Diferencial-----------------------------//
+    var P = boardGraphPlot.create('point',[0,1], {name:'P',visible:false});
+    var N=10;
+    var g;
+    function f(t, x) {
+           return [9.8-0.5*x];
+    }
+    
+    function ode() {
+       return JXG.Math.Numerics.rungeKutta('heun', [P.Y()], [P.X(), P.X()+N], 200, f);
+    }
+
+    function plotFunction() {
+        g = boardGraphPlot.create('curve', [[0],[0]], {strokeColor:'red', strokeWidth:'2', visible:false});
+        g.updateDataArray = function() {
+            var data = ode();
+            var h = N/200;
+            this.dataX = [];
+            this.dataY = [];
+            for(var i=0; i<data.length; i++) {
+                this.dataX[i] = P.X()+i*h;
+                this.dataY[i] = data[i][0];
+            }
+        };
+    }
+ 
 
     //---------------------Botones EDVI-----------------------------------//
     
@@ -241,47 +266,159 @@ $(function(){
     }); 
 
 
-    //--------------------Crea tabla---------------------------//
- 
+    //----------------------Grid-------------------------------//
     
-    $('#TableBtn').click(function() {
-      
+    generaTabla();  
+
+    //--------------------Crea tabla---------------------------//
+    
+    
+    $('#TableBtn').click(function() {     
       generaTabla();
-      
     });
     
     var rowTable=0;
     var samples=animTime/20;
     var samplesOffset=0;
+
     
     function generaTabla(){
       colorTablaPuntos=generarcolor();
-        
-      for (var i=0; i<=19; i++) {
-        points.push( new Data((i*samples).toFixed(3),(g*(i*samples)-veloy).toFixed(3),colorTablaPuntos));
+      
+      for (var i=0; i<=21; i=i+3) {
+        for (var j = 0; j <=20 ; j=j+3) {
+          var table = document.getElementById("tabulacionTable");
+          var row = table.insertRow(rowTable);
+          $(row).css('background', "#CEE3F6");
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          cell1.innerHTML = j;
+          cell2.innerHTML = i;
+          //cell3.innerHTML = " ";  
+          cell3.innerHTML = (9.8-0.5*i).toFixed(2);  
+        }
+
       }
+      $('#tabulacionTable').editableTableWidget();
 
-      for (var i=0; i<=19; i++) {
-      rowTable++;
-      var table = document.getElementById("tabulacionTable");
-      var row = table.insertRow(rowTable);
-      $(row).css('background', colorTablaPuntos);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      cell1.innerHTML = points[i+samplesOffset].X;
-      cell2.innerHTML = points[i+samplesOffset].Y;
-      }
-
-      samplesOffset=samplesOffset+20;
-
-    }
+    }    
+ 
 
     $('#TableReset').on('click', function() {
       $('#tabulacionTable').remove();
       $('#tableResetBtn').remove();
       dataTable="";
-
     });
+
+    $('table td').on('change', function(evt, newValue) {
+      ploteaPuntos();
+      
+    });
+
+//--------------Plot slopes---------------//
+    var tablePoints=[];
+    var tableSegments=[];
+
+    function ploteaPuntos(){
+      boardGraphPlot.removeObject(tablePoints);
+      tablePoints.length = 0;
+      boardGraphPlot.removeObject(tableSegments);
+      tableSegments.length = 0;
+      board.update();   
+      
+      var table = document.getElementById("tabulacionTable"); 
+      var totalRows = document.getElementById("tabulacionTable").rows.length;
+      var totalCol = 1;
+
+      var length=1;
+
+
+      for (var i = 1; i < totalRows; i++)
+          { 
+            m=parseFloat(table.rows[i].cells[2].innerHTML);
+            tetha=Math.atan(m);
+
+            tablePoints.push(boardGraphPlot.create('point',
+              [parseFloat(table.rows[i].cells[0].innerHTML),
+               parseFloat(table.rows[i].cells[1].innerHTML)],
+               {fixed: true, color:'#85C1E9', name:""})
+            );
+
+
+            tablePoints.push(
+            boardGraphPlot.create('segment', [
+              [parseFloat(table.rows[i].cells[0].innerHTML)+length*Math.cos(tetha),parseFloat(table.rows[i].cells[1].innerHTML)+length*Math.sin(tetha)],
+              [parseFloat(table.rows[i].cells[0].innerHTML)-length*Math.cos(tetha),parseFloat(table.rows[i].cells[1].innerHTML)-length*Math.sin(tetha)]
+            ], {fixed: true, color:"#1A5276"})
+            );
+          }
+          plotFunction();
+         
+    }
+
+
+
+
+    //------------Copia------------//
+    var slopeCopia;
+    var repetido=false;
+    $('#copiarBtn').click(function() {
+        if(!repetido){
+          var GraphDraw="<div id='panelDraw' class='wrapper' style='margin: 0 auto; text-align: center; width:90%'>"
+          GraphDraw+="<div id='copiaGraph'></div>"
+          GraphDraw+="<canvas id='copiaGraphDraw' class='signature-pad' height=353 width=650></canvas>"
+          GraphDraw+="</div>"
+          GraphDraw+="<div class='btn-group inline btn-group-justified' style='margin: 0 auto; text-align: center; width:90%' >"
+          GraphDraw+="<a id='clrBtn' class='btn btn-success' role='button'>Borrar</a>"
+          GraphDraw+="</div>" 
+          repetido=true; 
+        }
+
+        /*GraphDraw+="<button id='clrBtn' type='button' class='btn btn-success btn-lg btn-block'>Borra</button>"   */
+
+      $('#GraphDraw').append(GraphDraw);
+         
+      slopeCopia = new SignaturePad(document.getElementById('copiaGraphDraw'), {
+            minWidth: 2,
+            maxWidth: 2,
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            penColor: 'rgb(190, 129, 247)'
+          });    
+
+
+
+      var svg = new XMLSerializer().serializeToString(boardGraphPlot.renderer.svgRoot);
+      var copiaGraph = document.getElementById("copiaGraph");
+      copiaGraph.innerHTML = svg;
+      console.log(svg);
+    });
+
+    //------------Limpia copia--------//
+   $('#GraphDraw').on('click', '#clrBtn', function(){
+      slopeCopia.clear();
+    });
+
+   $('#revealBtn').click(function(){
+      
+      //if((pos0.y==1)&&(veloy=-10)){
+         P.setAttribute({
+          visible: true
+         });
+
+        g.setAttribute({
+            visible: true
+        });
+     //}
+     //else alert("    (ಠ__ಠ)   Trampa. De la onomat. tramp, gemela de trap. 6. f. Contravención disimulada a una ley, convenio o regla, o manera de eludirla, con miras al provecho propio.       ¡No hagas trampa!");
+
+         
+   });
+
+
+    //-------------Dibuja sobre----------------//
+
+    
     
     //------------Recupera el valor de los sliders------------------//
     
@@ -340,7 +477,7 @@ $(function(){
 
     //--------------------------Dialogo Graph------------------------------
 
-/*     $(document).ready(function() {
+    $(document).ready(function() {
                 loadBundles($.i18n.browserLang());
                 // configure language combo box
                 $('#lang').change(function() {
@@ -374,7 +511,7 @@ $(function(){
         
             }          
           });
-      } */
+      }
 
 
 //--Plotea--//
@@ -386,7 +523,7 @@ $('#ploteaBtn').click(function() {
         { 
           tablePoints.push(boardGraphPlot.create('point',
             [points[i].X,points[i].Y],  
-            {color: points[i].color, name:""})
+            {color: points[i].color, name:"", })
              
           );
         }
